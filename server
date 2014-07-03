@@ -54,5 +54,5 @@ if(process.argv.length < 3){
         });
     });
 
-    server.listen(23);
+    server.listen(1234);
 }
