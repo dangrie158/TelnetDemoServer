@@ -7,11 +7,11 @@
     "bin": "./server",
     "repository": {
         "type": "git",
-        "url": "https://github.com/dangrie158/RETRO"
+        "url": "https://github.com/dangrie158/TelnetDemoServer"
     },
     "dependencies": {
-        "blessed": "git+http://github.com/dangrie158/blessed#added-variable-item-height-for-lists",
-        "apac": "git+http://github.com/dangrie158/node-apac#German_Endpoint"
+        "pty.js": "git+http://github.com/chjj/pty.js",
+        "telnetjs": "git+http://github.com/wez/telnetjs"
     },
     "private": true
 }
