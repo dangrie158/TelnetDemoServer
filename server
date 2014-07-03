@@ -61,5 +61,7 @@ if(process.argv.length < 3){
         });
     });
 
-    server.listen(1234);
+    server.listen(1234, function(){
+        console.log('Server listening on Port ' + port)
+    });
 }
