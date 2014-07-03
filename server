@@ -11,12 +11,19 @@ var IAC = 255, // interpret as command
 
     OPT_BINARY = 0; // RFC 856
     OPT_ECHO = 1; // RFC 857
-    OPT_LINE_MODE = 34; // RFC 1184
+    OPT_LINE_MODE = 34, // RFC 1184
+    DEFAULT_PORT = 23; 
 
 if(process.argv.length < 3){
     console.log('Usage: \n server LOGINCOMMAND [PORT]')
 }else{
     var commandName = process.argv[2];
+
+    var port = process.argv[3] || DEFAULT_PORT;
+    if(isNaN(port)){
+        port = DEFAULT_PORT;
+    }
+
     var server = new telnet.Server(function (c) {
         console.log(c);
         console.log("connected; term=%s %dx%d",
