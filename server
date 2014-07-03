@@ -25,7 +25,6 @@ if(process.argv.length < 3){
     }
 
     var server = new telnet.Server(function (c) {
-        console.log(c);
         console.log("connected; term=%s %dx%d",
             c.term, c.windowSize[0], c.windowSize[1]);
         console.log(c.env);
