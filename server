@@ -1,0 +1,58 @@
+#!/usr/bin/env node
+
+var telnet = require('telnetjs'),
+    pty = require('pty.js');
+
+var IAC = 255, // interpret as command
+    DO = 253, // please use option
+    WILL = 251, // I will use option
+    SB = 250, // sub-negotiation
+    SE = 240, // End sub-negotiation
+
+    OPT_BINARY = 0; // RFC 856
+    OPT_ECHO = 1; // RFC 857
+    OPT_LINE_MODE = 34; // RFC 1184
+
+if(process.argv.length < 3){
+    console.log('Usage: \n server LOGINCOMMAND [PORT]')
+}else{
+    var commandName = process.argv[2];
+    var server = new telnet.Server(function (c) {
+        console.log(c);
+        console.log("connected; term=%s %dx%d",
+            c.term, c.windowSize[0], c.windowSize[1]);
+        console.log(c.env);
+
+        //Disable Line Buffering
+        c.telnetCommand(DO, [OPT_LINE_MODE]);
+        c.telnetCommand(SB, [OPT_LINE_MODE, OPT_BINARY, IAC, SE]);
+        c.telnetCommand(WILL, [OPT_ECHO]);
+
+        var term = pty.spawn(commandName, [], {
+            name: c.term,
+            cols: 80,
+            rows: 24,
+            cwd: process.env.HOME,
+            env: process.env
+        });
+
+        term.on('data', function (data) {
+            c.write(data);
+        });
+
+        term.on('exit', function () {
+            c.destroy();
+            console.log('client disconnected')
+        });
+
+        c.on('data', function (buf) {
+            term.write(buf)
+        });
+
+        c.on('resize', function (width, height) {
+            term.resize(width, height)
+        });
+    });
+
+    server.listen(23);
+}

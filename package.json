@@ -1,0 +1,17 @@
+{
+    "name": "TelnetDemoServer",
+    "version": "0.1.0",
+    "description": "A telnetserver that runs a single Program",
+    "author": "Daniel Grie0haber <dangrie158@gmail.com>",
+    "main": "server",
+    "bin": "./server",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/dangrie158/RETRO"
+    },
+    "dependencies": {
+        "blessed": "git+http://github.com/dangrie158/blessed#added-variable-item-height-for-lists",
+        "apac": "git+http://github.com/dangrie158/node-apac#German_Endpoint"
+    },
+    "private": true
+}
