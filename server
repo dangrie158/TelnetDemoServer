@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var telnet = require('telnetjs'),
+var telnet = require('wez-telnet'),
     pty = require('pty.js');
 
 var IAC = 255, // interpret as command
